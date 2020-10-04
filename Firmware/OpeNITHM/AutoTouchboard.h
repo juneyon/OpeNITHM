@@ -31,6 +31,7 @@ class AutoTouchboard
 {
   private:
     uint16_t key_values[NUM_SENSORS];
+    KeyState prev_key_states[NUM_SENSORS];
     uint16_t single_thresholds[NUM_SENSORS];
     uint16_t double_thresholds[NUM_SENSORS];
 

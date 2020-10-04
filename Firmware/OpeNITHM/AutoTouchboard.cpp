@@ -239,12 +239,16 @@ KeyState AutoTouchboard::update(int key)
     return DOUBLE_PRESS;
   else if (key_values[key] > single_thresholds[key])
     return SINGLE_PRESS;
-#elif NUM_SENSORS == 32
-  if (key_values[key] > single_thresholds[key])
-    return SINGLE_PRESS;
-#endif
   else
     return UNPRESSED;
+#elif NUM_SENSORS == 32
+  if (key_values[key] > single_thresholds[key]) {
+    prev_key_states[key] = SINGLE_PRESS;
+  } else if (key_values[key] < single_thresholds[key] * 0.95 {
+    prev_key_states[key] = UNPRESSED;
+  }
+  return prev_key_states[key];
+#endif
 }
 
 uint16_t AutoTouchboard::getRawValue(int key)
@@ -257,6 +261,11 @@ AutoTouchboard::AutoTouchboard()
   pinMode(MUX_0, OUTPUT);
   pinMode(MUX_1, OUTPUT);
   pinMode(MUX_2, OUTPUT);
+
+  for (int i = 0; i < NUM_SENSORS; i++) 
+  {
+    prev_key_states[i] = UNPRESSED;
+  }
 
   calibrateKeys();
 }
