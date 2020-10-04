@@ -244,7 +244,7 @@ KeyState AutoTouchboard::update(int key)
 #elif NUM_SENSORS == 32
   if (key_values[key] > single_thresholds[key]) {
     prev_key_states[key] = SINGLE_PRESS;
-  } else if (key_values[key] < single_thresholds[key] * 0.95 {
+  } else if (key_values[key] < single_thresholds[key] * 0.995 {
     prev_key_states[key] = UNPRESSED;
   }
   return prev_key_states[key];
